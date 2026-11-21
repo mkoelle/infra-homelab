@@ -1,7 +1,7 @@
 ---
 # Sized for Jellyfin + Sonarr/Radarr/Lidarr plus Immich (server,
 # machine-learning, its own Postgres and Redis -- see
-# mkoelle/homelab-media's apps/servers/immich). Node has 8 CPU / ~31Gi
+# mkoelle/infra-homelab-media's apps/servers/immich). Node has 8 CPU / ~31Gi
 # (`kubectl describe node`, confirmed live); cluster-wide requests sat at
 # ~50% cpu / ~27% mem before this bump, so there's real headroom. Bumped
 # requests/limits and the PVC budget together: Immich adds 3 local-path

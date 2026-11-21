@@ -1,6 +1,6 @@
 # Homelab
 
-![Last Commit](https://img.shields.io/github/last-commit/mkoelle/homelab?color=black&labelColor=black&label=last%20commit&logo=github&logoColor=cyan&style=flat-square)
+![Last Commit](https://img.shields.io/github/last-commit/mkoelle/infra-homelab?color=black&labelColor=black&label=last%20commit&logo=github&logoColor=cyan&style=flat-square)
 
 This repository contains the setup, configurations, and automation scripts
 I use to run and experiment with my homelab.

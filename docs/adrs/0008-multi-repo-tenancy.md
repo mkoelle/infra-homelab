@@ -7,7 +7,7 @@ Accepted
 ## Context
 
 Media workloads (Jellyfin now; the \*arr stack, Audiobookshelf, etc. later)
-live in a separate private repo, [`mkoelle/homelab-media`](https://github.com/mkoelle/homelab-media).
+live in a separate private repo, [`mkoelle/infra-homelab-media`](https://github.com/mkoelle/infra-homelab-media).
 The goal is for that repo to evolve independently -- add apps, change sync
 policy, restructure its own app-of-apps -- without a homelab PR each time,
 while keeping it from reaching anything outside its own lane.
