@@ -9,7 +9,6 @@ resources:
   - cilium-networkpolicy.yaml
   - httproute.yaml
   - homelab-ca-configmap.yaml
-  - repo-homelab-media.yaml
   - repo-infra-homelab-media.yaml
   - github.com/argoproj/argo-cd//manifests/cluster-install?ref=v3.5.3
 
