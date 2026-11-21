@@ -23,7 +23,6 @@ spec:
   sourceNamespaces:
     - media-argocd
   sourceRepos:
-    - https://github.com/mkoelle/homelab-media
     - https://github.com/mkoelle/infra-homelab-media
   destinations:
     - server: https://kubernetes.default.svc
