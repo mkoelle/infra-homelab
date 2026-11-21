@@ -18,7 +18,7 @@ spec:
               kubernetes.io/metadata.name: core-argocd
         # homelab-media's oauth2-proxy releases (Sonarr/Radarr/Lidarr) hit
         # the same hairpin problem as argocd-server -- same relay, same
-        # hostAliases pattern (see mkoelle/homelab-media).
+        # hostAliases pattern (see mkoelle/infra-homelab-media).
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: media

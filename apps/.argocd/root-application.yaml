@@ -9,7 +9,7 @@ metadata:
 spec:
   project: homelab
   source:
-    repoURL: https://github.com/mkoelle/homelab
+    repoURL: https://github.com/mkoelle/infra-homelab
     targetRevision: main
     path: apps/.argocd
   destination:

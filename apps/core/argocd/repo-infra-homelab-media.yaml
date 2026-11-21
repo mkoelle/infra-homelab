@@ -1,5 +1,5 @@
 ---
-# Argo CD repository credential for the private homelab-media repo (the
+# Argo CD repository credential for the private infra-homelab-media repo (the
 # media tenant -- see apps/.argocd/media.yaml). Argo CD discovers repo
 # credentials by the argocd.argoproj.io/secret-type label, not by name.
 #
@@ -15,7 +15,7 @@
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: repo-homelab-media
+  name: repo-infra-homelab-media
   namespace: core-argocd
 spec:
   refreshInterval: 1h
@@ -23,7 +23,7 @@ spec:
     name: bitwarden-secretsmanager
     kind: ClusterSecretStore
   target:
-    name: repo-homelab-media
+    name: repo-infra-homelab-media
     creationPolicy: Owner
     template:
       metadata:
@@ -31,7 +31,7 @@ spec:
           argocd.argoproj.io/secret-type: repository
       data:
         type: git
-        url: https://github.com/mkoelle/homelab-media
+        url: https://github.com/mkoelle/infra-homelab-media
         # Any non-empty username works with a fine-grained PAT.
         username: git
         password: "{{ .token }}"

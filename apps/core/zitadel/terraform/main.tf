@@ -155,8 +155,8 @@ resource "zitadel_application_oidc" "grafana" {
 }
 
 # Jellyfin has its own native OIDC support via a plugin (Flowfin's
-# jellyfin-plugin-sso, mkoelle/homelab-media#issue -- see
-# mkoelle/homelab#53), so it needs no oauth2-proxy and no kubernetes_secret
+# jellyfin-plugin-sso, mkoelle/infra-homelab-media#issue -- see
+# mkoelle/infra-homelab#53), so it needs no oauth2-proxy and no kubernetes_secret
 # here: the plugin's own admin UI takes client_id/client_secret directly and
 # persists them to Jellyfin's own config volume. id_token_role_assertion
 # mirrors ArgoCD's app-level flag above rather than touching this project's
@@ -182,7 +182,7 @@ resource "zitadel_application_oidc" "jellyfin" {
   id_token_role_assertion     = true
 }
 
-# Immich (mkoelle/homelab-media, apps/servers/immich) has native OIDC
+# Immich (mkoelle/infra-homelab-media, apps/servers/immich) has native OIDC
 # support in its own admin settings, same shape as Jellyfin's plugin above:
 # no oauth2-proxy, no kubernetes_secret here, client_id/client_secret go
 # straight into Immich's own OAuth settings page and persist to its
@@ -211,7 +211,7 @@ resource "zitadel_application_oidc" "immich" {
   id_token_role_assertion     = true
 }
 
-# Sonarr, Radarr, and Lidarr (mkoelle/homelab-media, apps/automation/) have
+# Sonarr, Radarr, and Lidarr (mkoelle/infra-homelab-media, apps/automation/) have
 # no native OIDC support, same situation as Hubble/Alloy/OpenCost/Homepage
 # above -- each needs its own oauth2-proxy client. Unlike those, the
 # secrets land in `media`, a tenant namespace this repo owns but doesn't

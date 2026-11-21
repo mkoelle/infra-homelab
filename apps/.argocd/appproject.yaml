@@ -12,7 +12,7 @@ metadata:
 spec:
   description: Homelab GitOps — single repo, explicit namespace allowlist
   sourceRepos:
-    - https://github.com/mkoelle/homelab
+    - https://github.com/mkoelle/infra-homelab
     - https://helm.cilium.io/
     - https://charts.external-secrets.io
     - https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
