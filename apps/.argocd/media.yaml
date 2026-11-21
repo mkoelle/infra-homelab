@@ -1,6 +1,6 @@
 ---
 # homelab-media tenant (ADR 0008): homelab owns the fence, the
-# github.com/mkoelle/homelab-media repo owns everything inside it.
+# github.com/mkoelle/infra-homelab-media repo owns everything inside it.
 #
 # Enforcement: Applications in namespace media-argocd (apps-in-any-namespace,
 # apps/core/argocd/argocd-cmd-params-cm.yaml) may only reference projects
@@ -74,7 +74,7 @@ metadata:
 spec:
   project: media
   source:
-    repoURL: https://github.com/mkoelle/homelab-media
+    repoURL: https://github.com/mkoelle/infra-homelab-media
     targetRevision: HEAD
     path: argocd
   destination:

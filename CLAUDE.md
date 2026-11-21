@@ -93,7 +93,7 @@ Within a single app, resources can carry their own `argocd.argoproj.io/sync-wave
 
 ### 7. Tenants (homelab-media)
 
-- Media apps live in the private repo `mkoelle/homelab-media`; see ADR 0008 (`docs/adrs/0008-multi-repo-tenancy.md`).
+- Media apps live in the private repo `mkoelle/infra-homelab-media`; see ADR 0008 (`docs/adrs/0008-multi-repo-tenancy.md`).
 - **homelab owns the fence, the tenant owns everything inside it.** homelab owns: AppProject `media` + `media-root` (`apps/.argocd/media.yaml`), namespaces/PSA/quota and the SMB credentials Secret in `media` (`apps/core/tenant-media`), the `local-path` provisioner (`apps/core/local-path`), the Gateway `https-media` listener, and secret-store scoping. homelab does **not** hold per-app media config (no PVs, no Homepage entries).
 - Don't add media workloads here, and don't loosen the `media` AppProject (cluster-scoped kinds, extra destinations) to make a tenant change work -- change the fence deliberately, in this repo, with the reasoning in a comment.
 - The tenant declares its own storage: inline SMB CSI volumes (NAS shares) and `local-path` PVCs (app state, node-local, not backed up). A new NAS share needs only a NAS permission for the media SMB user; more storage needs its quota in `apps/core/tenant-media/resourcequota.yaml`. Add a zeroed quota line there for any new StorageClass.
