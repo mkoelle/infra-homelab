@@ -262,6 +262,45 @@ resource "zitadel_application_oidc" "lidarr" {
   access_token_type = "OIDC_TOKEN_TYPE_BEARER"
 }
 
+# Courseo (mkoelle/infra-homelab-media, apps/servers/courseo) serves the
+# course library behind an oauth2-proxy sidecar, like Sonarr above. It gets
+# its own project, not the shared `homelab` one, because it is the one app
+# meant for people other than the admin: project_role_check makes Zitadel
+# refuse the login outright for any user without a role on this project, so
+# only users granted `learner` (by hand in the Zitadel console -- Google-
+# federated users only exist after their first login) ever reach Courseo.
+# Turning role check on for `homelab` instead would lock every other app out
+# for everyone without a grant.
+resource "zitadel_project" "courses" {
+  org_id                 = local.org_id
+  name                   = "courses"
+  project_role_assertion = false
+  project_role_check     = true
+  has_project_check      = false
+}
+
+resource "zitadel_project_role" "courses_learner" {
+  org_id       = local.org_id
+  project_id   = zitadel_project.courses.id
+  role_key     = "learner"
+  display_name = "Learner"
+}
+
+resource "zitadel_application_oidc" "courseo" {
+  org_id         = local.org_id
+  project_id     = zitadel_project.courses.id
+  name           = "Courseo"
+  redirect_uris  = ["https://courses.media.hl.mkoelle.com/oauth2/callback"]
+  response_types = ["OIDC_RESPONSE_TYPE_CODE"]
+  grant_types    = ["OIDC_GRANT_TYPE_AUTHORIZATION_CODE"]
+
+  app_type          = "OIDC_APP_TYPE_WEB"
+  auth_method_type  = "OIDC_AUTH_METHOD_TYPE_BASIC"
+  version           = "OIDC_VERSION_1_0"
+  dev_mode          = false
+  access_token_type = "OIDC_TOKEN_TYPE_BEARER"
+}
+
 # SFTPGo (apps/media/sftpgo) has native OIDC for its WebClient -- no
 # oauth2-proxy (it can't take a username from a proxy header, so that would
 # mean two logins). Redirect path confirmed against SFTPGo v2.7.6's own
@@ -538,6 +577,22 @@ resource "kubernetes_secret" "lidarr_oauth2_proxy" {
     client-id     = zitadel_application_oidc.lidarr.client_id
     client-secret = zitadel_application_oidc.lidarr.client_secret
     cookie-secret = random_id.lidarr_cookie_secret.b64_url
+  }
+}
+
+resource "random_id" "courseo_cookie_secret" {
+  byte_length = 32
+}
+
+resource "kubernetes_secret" "courseo_oauth2_proxy" {
+  metadata {
+    name      = "courseo-oauth2-proxy-secret"
+    namespace = "media"
+  }
+  data = {
+    client-id     = zitadel_application_oidc.courseo.client_id
+    client-secret = zitadel_application_oidc.courseo.client_secret
+    cookie-secret = random_id.courseo_cookie_secret.b64_url
   }
 }
 
